@@ -1,0 +1,17 @@
+# Python
+*.pyc
+__pycache__/
+db.sqlite3
+
+# Django
+*.log
+/staticfiles/
+media/
+
+# Virtual environment
+venv/
+env/
+TourSite_env/
+
+# VSCode
+.vscode/
