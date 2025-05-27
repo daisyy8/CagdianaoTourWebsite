@@ -1,0 +1,113 @@
+{% extends "tourism/base.html" %}
+{% load static %}
+{% block content %}
+
+<style>
+  a.back-button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  a.back-button:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+  }
+</style>
+    <a href="javascript:history.back()" 
+    class="back-button"
+    style="position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; background-color: #FFD700; color: black; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000;">
+    ← Back
+    </a>
+
+<section class="tourism-video" style="text-align: center; margin-bottom: 2rem;"data-aos="fade-up" data-aos-delay="100">
+    <h2 class="video-label">Cagdianao Tourism Video</h2>
+    <video width="100%" style="max-width: 800px; border-radius: 10px;" autoplay muted loop controls>
+        <source src="{% static 'tourism/videos/CagdianaoTourismVideo.mp4' %}" type="video/mp4">   
+    </video>
+</section>
+
+<section class="about-wrapper">
+    <div class="about-container" data-aos="fade-up" data-aos-delay="100" >
+        <h2>About the Municipality of Cagdianao</h2>
+
+        <section data-aos="fade-up" data-aos-delay="100" >
+            <h3>Overview</h3>
+            <p>
+                Cagdianao, officially the Municipality of Cagdianao 
+                (Surigaonon: <em>Lungsod nan Cagdianao</em>; Cebuano: <em>Lungsod sa Cagdianao</em>; Tagalog: <em>Bayan ng Cagdianao</em>), 
+                is a municipality in the province of Dinagat Islands, Philippines. According to the 2020 census, 
+            </p>
+        </section>
+
+        <section data-aos="fade-up" data-aos-delay="100" >
+            <h3>Etymology</h3>
+            <p>
+                Cagdianao is derived from <strong>kagdianao</strong>, an alternate form of <strong>kaagdao-an</strong>, 
+                meaning "place where mangroves grow", from <strong>agdao</strong>, a local name for a species of mangrove.
+            </p>
+        </section>
+
+        <section data-aos="fade-up" data-aos-delay="100" >
+            <h3>History</h3>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                Nestled on the southeastern tip of Dinagat Island, the Municipality of Cagdianao is a land of rugged mountains and coastal charm. The terrain is predominantly mountainous, stretching from Barangay Del Pilar to Barangay Legaspi, while its communities are gracefully positioned along the coastline or cradled in sheltered valleys. To the south lies the Gabok Channel, and to the north, the Gaas Inlet — natural boundaries that shaped the development of the area.
+            </p>
+
+            <p data-aos="fade-up" data-aos-delay="100" >
+                Cagdianao derives its name from the phrase “Cada Dia Danaw”, which translates to “peaceful lake.” This name was inspired by the serene, mirror-like seas observed during the summer months when the southwest monsoon brings calm and tranquility, making the ocean resemble a sleeping pool of oil. Over time, the phrase evolved into the name we know today — Cagdianao.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                Despite the rugged landscape, early settlers thrived in Cagdianao due to its rich natural resources. The forests were once abundant with lumber, rattan, daingan (wood resin), and rare orchids — valuable goods traded to regions like Cebu, Bohol, Surigao, and even Manila. The wildlife teemed with wild hogs and deer, while the seas were filled with a wide array of marine life including jijing (a type of fish), lobsters, squid, octopus, and various shellfish.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                The people of Cagdianao are known for their hospitality, industriousness, and peaceful nature. The native dialect, Surigaonon, closely resembles the Visayan languages, reflecting their shared cultural roots. The community’s main sources of livelihood include fishing and agriculture. Valleys were transformed into fertile rice fields, while coconut palms and other crops flourished along the coastal plains and hillsides. While fishing was mostly for local consumption, the jijing season in October brought about brief periods of commercial fishing. In earlier decades, logging was a common occupation, especially in the northern barangays, until environmental regulations imposed a total log ban.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                Religion took root in the early 20th century with the founding of the first Aglipayan Church in 1902 under Bishop Simfroso Montemayor. Later, Catholic missionaries arrived, and by 1926, the town had completed the construction of its Catholic Church. Cagdianao’s patron saints, Saints Peter and Paul, symbolize hope through repentance and strength in the propagation of faith. The town celebrates their feast day every 29th day of June, coinciding with the post-harvest season — a time of gratitude and renewal.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                Although still relatively young as a municipality, Cagdianao has shown steady growth and progress, rivaling other towns in Surigao del Norte. The area was first settled in the late 19th century by pioneering families including Matias Longos, Domingo Litang, Marianito Lerog, Fortunato Menil, and Leon Petallo. The original settlement, known as Daan Lungsod, was eventually moved to what is now Barangay Poblacion due to the scarcity of water sources. Matias Longos served as the first Teniente Encargado, succeeded by a lineage of community leaders who guided Cagdianao’s development.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                The dream of self-governance grew stronger over the years. Despite initial setbacks, the aspiration to become an independent municipality finally came to fruition. On December 23, 1959, through Executive Order No. 367 issued by then-President Carlos P. Garcia, and upon recommendation by the Provincial Board of Surigao, Cagdianao was officially declared a municipality. It comprised barangays such as Laguna, Sta. Rita, Nueva Estrella, Del Pilar, Boa, Valencia, Legaspi, Cabungaan, Maatas, Tigbao, and Poblacion. Later, Sitio Tagbirayan became Barangay San Jose in 1971, Sitio Maribojoc became Barangay Mabini in 1981, and Sitio Alangalang was converted into Barangay R. Ecleo Sr.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                In the decades that followed, political and administrative changes reshaped the island. Originally, the entire Dinagat Island was governed as a single municipality established in 1855. Over time, it was divided into several municipalities: Loreto, Cagdianao, Libjo, Basilisa, Tubajon, and San Jose. The island’s status changed dramatically when a plebiscite on December 2, 2006 resulted in the creation of the Province of Dinagat Islands, following a favorable vote of over 69,000 in support.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                However, in February 2010, the Supreme Court ruled the creation of the province unconstitutional, citing failure to meet the minimum requirements for land area and population. Consequently, Cagdianao and other municipalities were returned to Surigao del Norte. This decision was later reversed, and the Province of Dinagat Islands was reinstated, restoring Cagdianao’s status as one of its constituent municipalities.
+            </p>
+            <p data-aos="fade-up" data-aos-delay="100" >
+                Today, Cagdianao stands as a testament to resilience, natural wealth, and the enduring spirit of its people — a town shaped by nature, nourished by culture, and uplifted by history.
+            </p>
+            <p class="text-center" data-aos="fade-up" data-aos-delay="100" ><strong>𝑳𝑶𝑽𝑬, 𝑫𝑰𝑺𝑪𝑰𝑷𝑳𝑰𝑵𝑬, 𝑨𝑵𝑫 𝑼𝑵𝑰𝑻𝒀!</strong></p>
+            <p class="text-center" data-aos="fade-up" data-aos-delay="100" ><strong>#HingasKagjawnon!</strong></p>
+        </section>
+
+        <section data-aos="fade-up" data-aos-delay="100" >
+            <h3>Barangays</h3>
+            <p>Cagdianao is politically subdivided into 14 barangays. Each barangay consists of puroks while some have sitios.</p>
+            <ul>
+                <li>Boa</li>
+                <li>Cabunga-an</li>
+                <li>Del Pilar</li>
+                <li>Laguna</li>
+                <li>Legaspi</li>
+                <li>Ma-atas</li>
+                <li>Mabini</li>
+                <li>Nueva Estrella</li>
+                <li>Poblacion</li>
+                <li>R. Ecleo</li>
+                <li>San Jose</li>
+                <li>Santa Rita</li>
+                <li>Tigbao</li>
+                <li>Valencia</li>
+            </ul>
+        </section>
+
+        <div class="travel-safety-message" data-aos="fade-up" data-aos-delay="100" >
+            Enjoy Traveling! <span>Think Safety First!</span>
+        </div>
+        
+
+    </div>
+</section>
+{% endblock content %}

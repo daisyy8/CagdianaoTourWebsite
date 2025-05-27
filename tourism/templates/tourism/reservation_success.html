@@ -1,0 +1,61 @@
+{% extends 'tourism/base.html' %}
+{% load math_filters %}
+{% block content %}
+
+<style>
+  a.back-button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  a.back-button:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+  }
+</style>
+
+    <a href="javascript:history.back()" 
+    class="back-button"
+    style="position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; background-color: #FFD700; color: black; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000;">
+    ← Back
+    </a>
+    
+  <div style="max-width: 600px; margin: 40px auto; padding: 20px; background-color: rgba(255, 255, 255, 0.85); border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);"data-aos="fade-up" data-aos-duration="1000">
+    <h2 style="text-align: center; margin-bottom: 25px; color: #0d6efd;">Reservation Confirmed</h2>
+
+    <p><strong>Contact Person:</strong> {{ reservation.full_name }}</p>
+            <p><strong>Contact Number:</strong> {{ reservation.contact_number }}</p>
+            <p><strong>Entrance Fee:</strong> ₱{{ reservation.spot.price }} per head</p>
+            {% if reservation.spot.is_limited %}
+                <p style="margin: 5px 0;"><strong>Cottage Price:</strong> ₱{{ reservation.spot.cottage_price }}</p>
+                <p><strong>Cottage Number:</strong> {{ reservation.cottage_number }}</p>
+            {% endif %}
+            <p><strong>Start Date:</strong> {{ reservation.start_date|date:"F d, Y" }}</p>
+            <p><strong>End Date:</strong> {{ reservation.end_date|date:"F d, Y" }}</p>
+            <p><strong>Time:</strong> {{ reservation.time|time:"h:i A" }}</p>
+            <p><strong>Guests:</strong> {{ reservation.num_guests }}</p>
+            {% if reservation.note %}
+              <p><strong>Note:</strong> {{ reservation.note }}</p>
+            {% endif %}
+            {% with base_price=reservation.num_guests|multiply:reservation.spot.price %}
+              {% if reservation.spot.is_limited %}
+                  {% with total_payment=base_price|add:reservation.spot.cottage_price %}
+                      <p><strong>Total Payment:</strong> ₱{{ total_payment|floatformat:2 }}</p>
+                  {% endwith %}
+                {% else %}
+                  <p><strong>Total Payment:</strong> ₱{{ base_price|floatformat:2 }}</p>
+                {% endif %}
+            {% endwith %}
+
+    {% if reservation.is_accepted %}
+    <p>Status: <strong style="color:green;">Accepted </strong></p>
+    {% else %}
+    <p>Status: <strong style="color:red;">Pending / Not Accepted </strong></p>
+    {% endif %}
+    
+
+    <div style="margin-top: 20px; text-align: center;">
+      <a href="{% url 'edit_reservation' reservation.id %}" style="margin-right: 10px; color: #198754;">Edit</a>
+      <a href="{% url 'cancel_reservation' reservation.id %}" style="margin-right: 10px; color: #dc3545;">Cancel Booking</a>
+      <a href="{% url 'home' %}" style="color: #0d6efd;">Home</a>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "tourism/base.html" %}
+{% load static %}
+
+{% block content %}
+  <!-- Your existing content here, like videos and about sections -->
+  
+  <!-- Insert this at the bottom of your content -->
+  <h2 style="text-align: center; font-size: 34px; font-weight: bold; color: #002b5c; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); margin-top: 2rem;">
+    Map of Cagdianao, Dinagat Islands
+  </h2>
+
+    <a href="javascript:history.back()" 
+    class="back-button"
+    style="position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; background-color: #FFD700; color: black; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000;">
+    ← Back
+    </a>
+
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+  <div id="map" style="
+    height: 420px; 
+    width: 100%; 
+    max-width: 700px; 
+    margin: 20px auto 2rem auto;  /* Add top margin */
+    border: 4px solid #002b5c; 
+    border-radius: 10px; 
+    overflow: hidden;
+    position: relative;
+    z-index: 1;  /* Ensure it's below the toggle */
+  "></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+
+  <script>
+    var map = L.map('map').setView([9.9211, 125.6692], 12);
+
+    var streetLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap contributors',
+      maxZoom: 18
+    });
+
+    var satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri',
+      maxZoom: 18
+    });
+
+    streetLayer.addTo(map);
+
+    var marker = L.marker([9.923778, 125.673417]).addTo(map)
+      .bindPopup("<b>Cagdianao Port</b><br>WMFF+GC2, Cagdianao, Dinagat Islands")
+      .openPopup();
+
+    map.on('baselayerchange', function () {
+      marker.openPopup();
+    });
+
+    var baseMaps = {
+      "Street": streetLayer,
+      "Satellite": satelliteLayer
+    };
+    L.control.layers(baseMaps).addTo(map);
+
+    var geocoder = L.Control.Geocoder.photon();
+    L.Control.geocoder({
+      geocoder: geocoder,
+      defaultMarkGeocode: true
+    }).addTo(map);
+
+    window.addEventListener('load', function () {
+      var topRight = document.querySelector('.leaflet-top.leaflet-right');
+      topRight.style.display = 'flex';
+      topRight.style.flexDirection = 'row-reverse';
+      topRight.style.alignItems = 'center';
+
+      var geocoderBox = document.querySelector('.leaflet-control-geocoder');
+      if (geocoderBox) geocoderBox.style.marginRight = '10px';
+    });
+  </script>
+{% endblock %}

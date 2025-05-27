@@ -1,0 +1,87 @@
+    .about-wrapper {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 0.5rem 0.5rem;
+    }
+
+    .about-container {
+        max-width: 900px;
+        width: 100%;
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.6);
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(3, 3, 3, 2);
+    }
+
+    .about-container h2 {
+        text-align: center;
+        color: #002b5c;
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .about-container section {
+        margin-bottom: 2rem;
+    }
+
+    .about-container h3 {
+        color: #004080;
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .about-container p {
+        line-height: 1.6;
+        font-size: 1rem;
+        color: #333;
+        text-align: justify;
+    }
+
+    .about-container ul {
+        list-style: none;
+        padding-left: 1rem;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 10px;
+        margin-top: 0.5rem;
+    }
+
+    .about-container ul li::before {
+        content: "📍 ";
+        color: #002b5c;
+    }
+
+    .video-label {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #002b5c;
+        text-shadow: 2px 2px 5px rgb(181, 170, 170);
+        margin-bottom: 1rem;
+    }
+
+    .travel-safety-message {
+        font-size: 1.5rem;
+        color: #008CBA; /* Blue color for traveling */
+        font-weight: bold;
+        text-align: center;
+        margin-top: 2rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .travel-safety-message span {
+        color: #FF5733; 
+    }
+
+    @media (max-width: 600px) {
+        .about-container {
+            padding: 1rem;
+        }
+
+        .about-container h2 {
+            font-size: 1.5rem;
+        }
+    }

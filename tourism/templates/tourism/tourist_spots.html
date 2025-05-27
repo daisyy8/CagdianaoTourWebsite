@@ -1,0 +1,79 @@
+{% extends "tourism/base.html" %}
+{% load static %}
+{% block title %}Tourist Spots in Cagdianao{% endblock %}
+{% block content %}
+
+<style>
+  a.back-button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  a.back-button:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+  }
+    .book-now-btn {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #0d6efd;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .book-now-btn:hover {
+      background-color: #ffc107; 
+      color: black;
+  }
+</style>
+
+<main class="tourist-content" style="font-family: 'Segoe UI', sans-serif; padding-bottom: 60px;">
+
+    <a href="javascript:history.back()" 
+    class="back-button"
+    style="position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; background-color: #FFD700; color: black; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000;">
+    ← Back
+    </a>
+
+    <section class="hero-section" style="display: flex; align-items: center; justify-content: center; text-align: center; height: 150px; background: #186eefa4; color: white;" data-aos="fade-down" data-aos-delay="100">
+        <div class="hero-overlay">
+            <h1 class="hero-title" style="font-size: 2.5rem; margin-bottom: 10px;">Explore the Best of Cagdianao</h1>
+            <p class="hero-description" style="font-size: 1.2rem;">Discover hidden gems, beautiful beaches, and thrilling adventures. Book your next getaway today!</p>
+        </div>
+    </section>
+
+    <div class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 20px;"data-aos="fade-down" data-aos-delay="100">
+        <h2 style="text-align: center; font-size: 2rem; color: #0d6efd; margin-bottom: 10px;">Top Tourist Spots</h2>
+        <p style="text-align: center; color: #000000; margin-bottom: 30px;">Find your next adventure in Cagdianao! Check availability and reserve your spot below.<br><strong>↓ SCROLL DOWN ↓</strong></p>
+
+      {% for spot in spots %}
+        <div data-aos="zoom-in" data-aos-delay="100" style="display: flex; flex-wrap: wrap; gap: 20px; background: rgba(255, 255, 255, 0.477); border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px; margin-bottom: 30px;">
+          
+          <img src="{{ spot.image.url }}" alt="{{ spot.name }}" style="width: 100%; max-width: 350px; height: auto; border-radius: 8px; object-fit: cover;">
+          
+          <div style="flex: 1;">
+              <h3 style="font-size: 1.5rem; margin-top: 0; color: #0d6efd;">{{ spot.name }}</h3>
+              <p style="margin: 10px 0; color: #000000;">{{ spot.description }}</p>
+              <p style="margin: 5px 0;"><strong>Location:</strong> {{ spot.location }}</p>
+              <p style="margin: 5px 0;"><strong>Entrance Fee:</strong> ₱{{ spot.price }} per head</p>
+              {% if spot.is_limited %}
+                <p style="margin: 5px 0;"><strong>Cottage Price:</strong> ₱{{ spot.cottage_price }}</p>
+              {% endif %}
+              <p style="margin: 5px 0;"><strong>Date Start Available</strong> {{ spot.available_from }}</p>
+              <p style="margin: 5px 0;"><strong>Date Until Available</strong> {{ spot.available_until }}</p>
+              <a href="{% url 'book_reservation' spot.id %}" class="book-now-btn">Book Now</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,  
+        once: true     
+      });
+    </script>
+</main>
+{% endblock %}

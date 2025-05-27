@@ -1,0 +1,247 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CagdianaoTourSite - Cagdianao Tourist Spots</title>
+  <link rel="stylesheet" href="{% static 'tourism/style.css' %}">
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+</head>
+
+<body>
+  <button id="menu-toggle">&#9776;</button>
+
+  <nav id="sidebar-nav">
+    <ul>
+      <li><a href="{% url 'home' %}">Home</a></li>
+      <li><a href="{% url 'tourist_spots' %}" class="btn-tourist-spots">Tourist Spots in Cagdianao</a></li>
+      <li><a href="{% url 'my_reservations' %}" class="button">View My Reservations</a></li>
+      <li><a href="{% url 'about' %}">About Cagdianao</a></li>
+      <li><a href="{% url 'map_view' %}">View Map</a></li>
+      <li><a href="{% url 'officials_dashboard' %}">All Reservations</a></li>
+      
+    </ul>
+  </nav>
+
+  <header>
+    <h1>CagdianaoTourSite</h1>
+    <a>Tara, discovera ang katahum sa among isla!</a>
+    {% if user.is_authenticated %}
+      <p>Hello, {{ user.username }} | <a href="{% url 'logout' %}">Log Out</a></p>
+    {% else %}
+      <p>
+     <a href="{% url 'login' %}" class="{% if request.path == '/login/' %}active{% endif %}">Log In</a> |
+    <a href="{% url 'sign_up' %}" class="{% if request.path == '/signup/' %}active{% endif %}">Sign Up</a>
+
+</p>
+    {% endif %}
+  </header>
+
+  <main>
+    {% block content %}
+    {% endblock %}
+  </main>
+
+  {% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({ duration: 1000, once: true });
+
+      // Sidebar toggle
+      document.getElementById("menu-toggle").onclick = function () {
+        document.getElementById("sidebar-nav").classList.toggle("active");
+      };
+    </script>
+
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+  }
+    /* Header Styles */
+    header {
+      position: sticky;
+      top: 0;
+      background: linear-gradient(to bottom, rgba(8, 48, 92, 0.8), rgba(0, 43, 92, 1)), url("{% static 'tourism/images/Landmark.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 10px 0;
+      text-align: center;
+      z-index: 100;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+      background:
+        url("{% static 'tourism/images/jjj.jpg' %}");
+      background-size: cover;
+      background-clip: text;
+      color: transparent;
+      animation: animate 10s linear infinite;
+      letter-spacing: 1px;
+      font-weight: 700;
+    }
+
+    @keyframes animate {
+      to {
+        background-position-x: -200px;
+      }
+    }
+
+    header p {
+      color: #FFD700;
+      font-size: 1.1rem;
+      margin: 1rem 0;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      font-weight: 500;
+    }
+
+    /* Auth Links */
+    header p a {
+    margin-top: 3;
+    color: #ffffff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    transition: all 0.3s ease-in-out;
+    }
+
+    header p a:hover,
+    header p a.active {
+    background-color: rgba(255, 248, 30, 0.505);
+    transform: scale(1.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+
+    /* Toggle Button */
+    #menu-toggle {
+      position: fixed;       /* fixed so it stays in place on scroll */
+      top: 15px;
+      left: 20px;
+      font-size: 28px;
+      background: none;
+      color: #FFD700;
+      border: none;
+      cursor: pointer;
+      z-index: 200;
+    }
+
+    /* Sidebar Navigation */
+    #sidebar-nav {
+      position: fixed;
+      top: 120px; /* below header */
+      left: -220px; /* hidden initially */
+      width: 200px;
+      height: calc(100% - 120px); /* full height minus header */
+      background: rgba(0, 43, 92, 0.95);
+      transition: left 0.3s ease;
+      z-index: 150;
+      padding-top: 20px;
+      border-top-right-radius: 15px;
+      overflow-y: auto; /* scroll if content is long */
+    }
+
+    #sidebar-nav.active {
+      left: 0;
+    }
+
+    #sidebar-nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #sidebar-nav ul li {
+      padding: 10px 20px;
+    }
+
+    #sidebar-nav ul li a {
+      color: #FFD700;
+      font-size: 1.1rem;
+      font-weight: bold;
+      text-decoration: none;
+      display: block;
+      transition: background 0.3s ease;
+    }
+
+    #sidebar-nav ul li a:hover {
+      color:#ffffff
+    }
+
+
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+        position: relative;
+    }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("{% static 'tourism/images/back.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            z-index: -2;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.475); /* White overlay */
+            z-index: -1;
+        }
+
+    /* Responsive Adjustments */
+    @media (max-width: 768px) {
+      header {
+        height: 100px;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+
+      header a { 
+      font-size: 15px;
+      color: #ffffff;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
+      font-style: italic;
+      margin-top: 0;
+      }
+    }
+      
+
+      #sidebar-nav {
+        top: 100px;
+        height: calc(100% - 100px);
+      }
+
+  </style>
+  {% endblock %}
+</body>
+</html>

@@ -1,0 +1,8 @@
+<h2>Cancel Your Reservation</h2>
+<p>Are you sure you want to cancel your booking for <strong>{{ reservation.spot.name }}</strong> on <strong>{{ reservation.reservation_datetime|date:"F j, Y" }}</strong>?</p>
+
+<form method="post">
+    {% csrf_token %}
+    <button type="submit">Yes, Cancel It</button>
+    <a href="{% url 'home' %}">No, Go Back</a>
+</form>

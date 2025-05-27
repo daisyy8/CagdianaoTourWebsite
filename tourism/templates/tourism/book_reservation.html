@@ -1,0 +1,133 @@
+{% extends 'tourism/base.html' %}
+{% load static %}
+{% load math_filters %}
+
+{% block content %}
+<style>
+  .reservation-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background: rgba(255, 255, 255, 0.482);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .reservation-container h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #002b5c;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 14px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  select{
+    width: 99%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease; 
+  }
+  input,
+  textarea {
+    width: 94%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    border: 1.5px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #6524fd;
+    box-shadow: 0 0 5px #00000030;
+  }
+
+  .form-text {
+    font-size: 0.875rem;
+    color: #6c757d;
+  }
+
+  .text-danger {
+    font-size: 0.85rem;
+    color: red;
+  }
+
+  button[type="submit"] {
+    margin-top: 25px;
+    padding: 12px;
+    background-color: #002b5c;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #FFD700;
+    color: #002b5c;
+  }
+
+  .back-link {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .back-link a {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .back-link a:hover {
+    text-decoration: underline;
+  }
+</style>
+
+<div class="reservation-container" data-aos="fade-up" data-aos-duration="1000">
+  <h2>Book Reservation for {{ spot.name }}</h2>
+
+  <form method="post" novalidate>
+    {% csrf_token %}
+    {% for field in form %}
+      <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+      {{ field }}
+      {% if field.help_text %}
+        <div class="form-text">{{ field.help_text }}</div>
+      {% endif %}
+      {% for error in field.errors %}
+        <div class="text-danger" style="color: red;">{{ error }}</div>
+      {% endfor %}
+    {% endfor %}
+
+    <button type="submit">Book Reservation</button>
+  </form>
+
+
+  <div class="back-link" data-aos="fade-up" data-aos-duration="1000">
+    <a href="{% url 'home' %}">← Back to Home</a>
+  </div>
+</div>
+{% endblock %}

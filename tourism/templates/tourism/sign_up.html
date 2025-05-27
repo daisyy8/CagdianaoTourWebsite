@@ -1,0 +1,112 @@
+{% extends "tourism/base.html" %}
+{% block content %}
+<style>
+  .signup-container {
+    max-width: 420px;
+    margin: 40px auto;
+    padding: 30px 25px;
+    background: rgba(255, 255, 255, 0.662);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .signup-container h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 12px;
+    color: #002b5c;
+    font-weight: 900;
+    letter-spacing: 1px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    margin-top: 12px;
+    font-weight: 600;
+    color: #333;
+  }
+
+select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    border: 1.5px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"]
+ {
+    width: 93%;
+    padding: 10px 12px;
+    margin-top: 5px;
+    border: 1.5px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: #6524fd;
+    box-shadow: 0 0 5px #000000;
+  }
+
+  button[type="submit"] {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #002b5c;
+    color: white;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 1rem;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #FFD700;
+  }
+</style>
+
+<div class="signup-container">
+  <h2>Sign Up</h2>
+  <form method="POST">
+    {% csrf_token %}
+
+    <label>First Name:</label>
+    <input type="text" name="first_name">
+
+    <label>Last Name:</label>
+    <input type="text" name="last_name">
+
+    <label>Age:</label>
+    <input type="number" name="age" min="1">
+
+    <label>Sex:</label>
+    <select name="sex">
+      <option value="">Select</option>
+      <option value="M">Male</option>
+      <option value="F">Female</option>
+    </select>
+
+    <label>Username:</label>
+    <input type="text" name="username" required>
+
+    <label>Password:</label>
+    <input type="password" name="password" required>
+
+    <button type="submit">Sign Up</button>
+  </form>
+</div>
+{% endblock content %}

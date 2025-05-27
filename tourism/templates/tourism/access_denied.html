@@ -1,0 +1,31 @@
+{% extends 'tourism/base.html' %}
+
+{% block content %}
+  <div style="
+    max-width: 400px; 
+    margin: 5rem auto; 
+    padding: 2rem; 
+    border: 2px solid #e74c3c; 
+    border-radius: 10px; 
+    background-color: #fff7f7a1; 
+    box-shadow: 0 4px 10px rgba(231, 76, 60, 0.3);
+    text-align: center;
+  ">
+    <h2 style="color: #e74c3c; margin-bottom: 1rem;">Access Denied</h2>
+    <p style="color: #c0392b; font-weight: 600; font-size: 1.1rem; margin-bottom: 2rem;">
+      {{ message }}
+    </p>
+    <a href="{% url 'home' %}" style="
+      display: inline-block;
+      padding: 0.6rem 1.2rem;
+      background-color: #2980b9;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    " onmouseover="this.style.backgroundColor='#3498db'" onmouseout="this.style.backgroundColor='#2980b9'">
+      Go back to Home
+    </a>
+  </div>
+{% endblock %}

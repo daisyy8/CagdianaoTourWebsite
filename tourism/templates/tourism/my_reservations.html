@@ -1,0 +1,73 @@
+{% extends 'tourism/base.html' %}
+{% load math_filters %}
+
+{% block content %}
+<div style="max-width: 900px; margin: 40px auto; padding: 30px; border-radius: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+    <h2 style="text-align: center; font-size: 2rem; margin-bottom: 30px; color: #0d6efd;">My Reservations</h2>
+
+    {% if reservations %}
+    <div style="display: flex; flex-direction: column; gap: 20px;">
+        {% for reservation in reservations %}
+        <div style="background: rgba(255, 255, 255, 0.543); border-radius: 12px; padding: 20px; border: 1px solid #dee2e69a; box-shadow: 0 2px 6px rgba(0,0,0,0.05);" data-aos="fade-up" data-aos-duration="1000">
+            <h3 style="font-size: 1.5rem; color: #0d6efd; margin-top: 0;">{{ reservation.spot.name }}</h3>
+            <p><strong>Contact Person:</strong> {{ reservation.full_name }}</p>
+            <p><strong>Contact Number:</strong> {{ reservation.contact_number }}</p>
+            <p><strong>Entrance Fee:</strong> ₱{{ reservation.spot.price }} per head</p>
+            {% if reservation.spot.is_limited %}
+                <p style="margin: 5px 0;"><strong>Cottage Price:</strong> ₱{{ reservation.spot.cottage_price }}</p>
+                <p><strong>Cottage Number:</strong> {{ reservation.cottage_number }}</p>
+            {% endif %}
+            <p><strong>Start Date:</strong> {{ reservation.start_date|date:"F d, Y" }}</p>
+            <p><strong>End Date:</strong> {{ reservation.end_date|date:"F d, Y" }}</p>
+            <p><strong>Time:</strong> {{ reservation.time|time:"h:i A" }}</p>
+            <p><strong>Guests:</strong> {{ reservation.num_guests }}</p>
+            {% if reservation.note %}
+              <p><strong>Note:</strong> {{ reservation.note }}</p>
+            {% endif %}
+            {% with base_price=reservation.num_guests|multiply:reservation.spot.price %}
+              {% if reservation.spot.is_limited %}
+                  {% with total_payment=base_price|add:reservation.spot.cottage_price %}
+                      <p><strong>Total Payment:</strong> ₱{{ total_payment|floatformat:2 }}</p>
+                  {% endwith %}
+                {% else %}
+                  <p><strong>Total Payment:</strong> ₱{{ base_price|floatformat:2 }}</p>
+                {% endif %}
+            {% endwith %}
+
+            {% if reservation.is_accepted %}
+            <p>Status: <strong style="color:green;">Accepted </strong></p>
+            {% else %}
+            <p>Status: <strong style="color:red;">Pending / Not Accepted </strong></p>
+            {% endif %}
+            
+
+            <div style="margin-top: 15px;">
+                <a href="{% url 'reservation_success' reservation.id %}" style="padding: 6px 12px; margin-right: 10px; background-color: #0d6efd; color: white; border-radius: 6px; text-decoration: none;">View</a>
+                <a href="{% url 'edit_reservation' reservation.id %}" style="padding: 6px 12px; margin-right: 10px; background-color: #198754; color: white; border-radius: 6px; text-decoration: none;">Edit</a>
+                <a href="{% url 'cancel_reservation' reservation.id %}" style="padding: 6px 12px; background-color: #dc3545; color: white; border-radius: 6px; text-decoration: none;">Cancel</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    {% else %}
+    <p style="text-align: center; font-style: italic; font-size: 1.1rem;">You have no reservations yet.</p>
+    {% endif %}
+
+    <a href="javascript:history.back()" 
+    class="back-button"
+    style="position: fixed; bottom: 80px; right: 20px; padding: 12px 24px; background-color: #FFD700; color: black; text-decoration: none; border-radius: 30px; font-weight: bold; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); z-index: 1000;">
+    ← Back
+    </a>
+</div>
+
+<style>
+  a.back-button {
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  a.back-button:hover {
+    background-color: #0d6efd !important;
+    color: white !important;
+  }
+</style>
+{% endblock %}

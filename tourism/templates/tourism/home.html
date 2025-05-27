@@ -1,0 +1,98 @@
+{% extends "tourism/base.html" %}
+{% load static %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+<style>
+  .btn-tourist-reserve {
+      background-color: #496def;
+      color: white;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 8px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+      margin: 12px auto;
+      display: block;
+      text-align: center;
+      width: fit-content;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3), inset 0 -2px 0 rgba(255, 255, 255, 0.2);
+      transform: perspective(600px) translateZ(5px);
+  }
+
+  .btn-tourist-reserve:hover {
+      background-color: #dfb330;
+      transform: perspective(600px) translateZ(10px) scale(1.05);
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 3D logo */
+  .logo-3d {
+      width: 350px;
+      height: auto;
+      transition: transform 0.5s ease, filter 0.3s ease;
+      transform: perspective(800px) rotateX(5deg) rotateY(5deg);
+      filter: drop-shadow(4px 4px 6px rgba(0,0,0,0.3));
+  }
+
+  .logo-3d:hover {
+      transform: perspective(800px) rotateX(0deg) rotateY(0deg) scale(1.05);
+  }
+
+  /* Hero text section */
+  .hero-text {
+      text-align: center;
+      margin-top: -50px;
+      padding: 20px;
+      transform: perspective(1000px) translateZ(15px);
+  }
+
+  .hero-text h2 {
+      font-size: 36px;
+      font-weight: bold;
+      color: #002b5c;
+      text-shadow: 2px 3px 4px rgba(0, 0, 0, 0.4);
+      margin-bottom: 5px;
+  }
+
+  .hero-text p,
+  .hero-text p1 {
+      font-size: 20px;
+      color: #333;
+      font-style: italic;
+      text-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
+  }
+</style>
+
+</head>
+<body>
+<section class="hero"data-aos="fade-up" data-aos-delay="100">
+      <div style="text-align: center; margin-top: 50px;">
+        <img src="{% static 'tourism/images/LOGOCAG.png' %}" 
+            alt="Cagdianao" 
+            style="width: 350px; height: auto;">
+      </div>
+  <div class="hero-text">
+      <h2>Marajaw Karajaw sa CAGDIANAO</h2>
+      <p>Welcome to CagdianaoTourSite – your online guide to the beautiful tourist spots in the Municipality of Cagdianao, Dinagat Islands.</p>
+      <p1>Plan your visit today and enjoy the wonders of Cagdianao!</p1>
+    <div class="button-container">
+      <a href="{% url 'tourist_spots' %}" class="btn-tourist-reserve">Plan Your Visit</a>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+<p><a href="{% url 'login' %}">Log In</a></p>
+<p><a href="{% url 'sign_up' %}">Sign Up</a></p>
+<img src="{% static 'tourism/images/Logo-Cag.jpg' %}" alt="Cagdianao" width="800">
+<script src="{% static 'tourism/js/main.js' %}"></script>
+
+
+</body>
+</html>
+

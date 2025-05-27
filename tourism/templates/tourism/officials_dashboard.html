@@ -1,0 +1,160 @@
+{% extends 'tourism/base.html' %}
+{% load math_filters %}
+{% block content %}
+<style>
+  .dashboard {
+    padding: 40px 20px;
+    background-color: #f4f6f800;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .dashboard h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #002b5c;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .spot-section {
+    margin-bottom: 30px;
+    background: #819bb99e;
+    border-radius: 10px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    text-align: center;
+  }
+
+  .spot-section h3 {
+    color: #000000;
+    font-size: 1.5rem;
+    border-bottom: 2px solid #dde4ec;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+  }
+
+  .date-group {
+    text-align: center;
+  }
+
+  .date-group h4 {
+    margin-top: 25px;
+    color: #1100ff;
+    font-size: 1.15rem;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  h6 {
+    font-size: 1rem;
+    background: #f9f9f9b9;
+    border-left: 4px solid #000000;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    line-height: 1.9;
+    text-align: left;
+  }
+
+  li strong {
+    display: inline-block;
+    width: 150px;
+    color: #222;
+  }
+
+  form {
+    display: inline;
+    margin-left: 10px;
+  }
+
+  button[type="submit"] {
+    background-color: #dc3545;
+    border: none;
+    padding: 6px 12px;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #bd2130;
+  }
+
+  .no-reservation {
+    font-style: italic;
+    color: #666;
+    margin-top: 10px;
+  }
+</style>
+
+<div class="dashboard"data-aos="fade-up" data-aos-duration="1000">
+  <h2>All Tourist Spot Reservations</h2>
+
+  {% for spot in spots %}
+    <div class="spot-section"data-aos="fade-up" data-aos-duration="1000">
+      <h3>{{ spot.name }}</h3>
+
+      {% with spot.reservations.all as reservations %}
+        {% if reservations %}
+          {% regroup reservations|dictsort:"reservation_datetime" by reservation_datetime.date as dated_reservations %}
+          {% for date_group in dated_reservations %}
+            <div class="date-group"data-aos="fade-up" data-aos-duration="1000">
+              <h4>Date: {{ date_group.grouper }}</h4>
+              <ul>
+                {% for reservation in date_group.list %}
+                  <h6>
+                  <div><strong>Contact Person:</strong> {{ reservation.full_name }}</div>
+                  <div><strong>Contact Number:</strong> {{ reservation.contact_number }}</div>
+                  <div><strong>Entrance Fee:</strong> ₱{{ reservation.spot.price }} per head</div>
+                  {% if reservation.spot.is_limited %}
+                    <div><strong>Cottage Price:</strong> ₱{{ reservation.spot.cottage_price }}</div>
+                    <div><strong>Cottage Number:</strong> {{ reservation.cottage_number }}</div>
+                  {% endif %}
+                  <div><strong>Start Date:</strong> {{ reservation.reservation_datetime|date:"F d, Y" }}</div>
+                  <div><strong>End Date:</strong> {{ reservation.end_date|date:"F d, Y" }}</div>
+                  <div><strong>Time:</strong> {{ reservation.time|time:"h:i A" }}</div>
+                  <div><strong>Guests:</strong> {{ reservation.num_guests }}</div>
+                  {% if reservation.note %}
+                    <div><strong>Note:</strong> {{ reservation.note }}</div>
+                  {% endif %}
+                  {% with base_price=reservation.num_guests|multiply:reservation.spot.price %}
+                    {% if reservation.spot.is_limited %}
+                      {% with total_payment=base_price|add:reservation.spot.cottage_price %}
+                        <div><strong>Total Payment:</strong> ₱{{ total_payment|floatformat:2 }}</div>
+                      {% endwith %}
+                    {% else %}
+                      <div><strong>Total Payment:</strong> ₱{{ base_price|floatformat:2 }}</div>
+                    {% endif %}
+                  {% endwith %}
+
+                  {% if reservation.is_accepted %}
+                  <p>Status: <strong style="color:green;">Accepted </strong></p>
+                  {% else %}
+                  <p>Status: <strong style="color:red;">Pending / Not Accepted </strong></p>
+                  {% endif %}
+
+                    <form action="{% url 'delete_reservation_official' reservation.pk %}" method="post">
+                      {% csrf_token %}
+                      <button type="submit" onclick="return confirm('Are you sure you want to delete this reservation?');">Delete</button>
+                    </form>
+                  </h6>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="no-reservation">No reservations yet.</p>
+        {% endif %}
+      {% endwith %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
